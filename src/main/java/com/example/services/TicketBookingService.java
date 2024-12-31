@@ -1,0 +1,32 @@
+package com.example.services;
+
+import com.example.dao.TicketBookingDao;
+import com.example.entities.Ticket;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+public class TicketBookingService {
+
+    @Autowired
+    private TicketBookingDao ticketBookingDao;
+
+    public Ticket createTicket(Ticket ticket) {
+        return ticketBookingDao.save(ticket);
+    }
+
+    public Ticket getTicketById(Long ticketId) {
+        Optional<Ticket> ticket= ticketBookingDao.findById(ticketId);
+        return ticket.orElse(null);
+    }
+
+    public Iterable<Ticket> getAllBookedTickets() {
+        return ticketBookingDao.findAll();
+    }
+
+    public void deleteTicket(Long ticketId) {
+        ticketBookingDao.deleteById(ticketId);
+    }
+}
