@@ -34,5 +34,10 @@ public class TicketBookingController {
         ticketBookingService.deleteTicket(ticketId);
     }
 
+    @PutMapping(value = "/ticket/{ticketId}/{newEmail:.+}")
+    public Ticket updateTicket(@PathVariable("ticketId") Long ticketId,
+                               @PathVariable("newEmail") String newEmail){
+        return ticketBookingService.updateTicket(ticketId,newEmail);
+    }
 
 }

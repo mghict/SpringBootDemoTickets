@@ -29,4 +29,15 @@ public class TicketBookingService {
     public void deleteTicket(Long ticketId) {
         ticketBookingDao.deleteById(ticketId);
     }
+
+    public Ticket updateTicket(Long ticketId, String newEmail) {
+        Ticket ticket= ticketBookingDao.findById(ticketId).orElse(null);
+        if(ticket==null) {
+            return null;
+        }
+
+        ticket.setEmail(newEmail);
+        ticketBookingDao.save(ticket);
+        return ticket;
+    }
 }
