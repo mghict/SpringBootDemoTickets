@@ -5,6 +5,7 @@ import com.example.entities.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.util.Optional;
 
 @Service
@@ -19,6 +20,7 @@ public class TicketBookingService {
 
     public Ticket getTicketById(Long ticketId) {
         Optional<Ticket> ticket= ticketBookingDao.findById(ticketId);
+
         return ticket.orElse(null);
     }
 
