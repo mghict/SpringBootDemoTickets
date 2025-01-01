@@ -1,5 +1,6 @@
-package com.example.demo.ticket;
+package com.example.demo.entities.ticket;
 
+import com.example.demo.services.TicketBookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
