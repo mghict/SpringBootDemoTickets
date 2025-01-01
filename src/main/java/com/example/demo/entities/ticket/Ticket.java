@@ -4,6 +4,7 @@ package com.example.demo.entities.ticket;
 
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.Persistent;
 
 import java.util.Date;
 
@@ -15,7 +16,7 @@ public class Ticket {
     @Column(name="ticket_id")
     private Long id;
 
-    @Column(name="passenger_name",nullable = false)
+    @Column(name="passenger_name",length = 200,nullable = false)
     private String passengerName;
 
     @Column(name="booking_date")
@@ -27,8 +28,10 @@ public class Ticket {
     @Column(name="dest_station")
     private String destStation;
 
-    @Column(name="email")
+    @Column(name="email",unique = true)
     private String email;
+
+
 
 
     protected Ticket()
@@ -90,5 +93,17 @@ public class Ticket {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "  id=" + id +
+                ", passengerName='" + passengerName + '\'' +
+                ", bookingDate=" + bookingDate +
+                ", sourceStation='" + sourceStation + '\'' +
+                ", destStation='" + destStation + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
