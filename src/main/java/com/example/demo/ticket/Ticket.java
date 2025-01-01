@@ -1,15 +1,14 @@
-package com.example.entities;
+package com.example.demo.ticket;
+
+
+
 
 import jakarta.persistence.*;
-//import lombok.Getter;
-//import lombok.Setter;
 
 import java.util.Date;
 
-//@Getter
-//@Setter
 @Entity
-@Table()
+@Table(name = "ticket")
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,7 +1,5 @@
-package com.example.services;
+package com.example.demo.ticket;
 
-import com.example.dao.TicketBookingDao;
-import com.example.entities.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +10,7 @@ import java.util.Optional;
 public class TicketBookingService {
 
     @Autowired
-    private TicketBookingDao ticketBookingDao;
+    private TicketBookingRepository ticketBookingDao;
 
     public Ticket createTicket(Ticket ticket) {
         return ticketBookingDao.save(ticket);
