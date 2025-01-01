@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
+@NamedQuery( name="Person.findByName",query = "select p from Person p where p.lastName=?1")
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
