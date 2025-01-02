@@ -15,6 +15,10 @@ public class TicketSeed implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        createTicket();
+    }
+
+    private void createTicket() {
         Ticket ticket=new Ticket("Mostafa Gharali",
                 new Date(),
                 "Tehran",

@@ -21,38 +21,61 @@ public class SecuritySeed implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        Iterable<Role> rolesSaved= createRole();
+        createUserAdmin(rolesSaved);
+        createUser(rolesSaved);
+    }
+
+    private Iterable<Role> createRole()
+    {
         List<Role> roles = Arrays.asList(
                 new Role(1L,"ADMIN"),
                 new Role(2L,"USER")
         );
 
-        Iterable<Role> rolesSaved= roleRepository.saveAll(roles);
-        Set<Role> rolesSavedSet = new HashSet<Role>();
-        rolesSaved.forEach(role -> rolesSavedSet.add(role));
+        return roleRepository.saveAll(roles);
+    }
 
+    private Set<Role> convertIterableRoleToSetRole(Iterable<Role> roles)
+    {
+        Set<Role> rolesSet = new HashSet<Role>();
+        roles.forEach(role -> rolesSet.add(role));
 
+        return rolesSet;
+    }
 
-        List<User> users =new ArrayList<User>();
-        users.add(
+    private void createUserAdmin(Iterable<Role> roles)
+    {
+        Set<Role> rolesSavedSet = convertIterableRoleToSetRole(roles);
+        User user=
                 new User("admin",
                         "root",
                         true,
-                        rolesSavedSet)
-        );
+                        rolesSavedSet);
 
-        Optional<Role> userRole=rolesSavedSet
-                                        .stream()
-                                        .filter(p->"USER".equals(p.getName()))
-                                        .findFirst();
-        if(userRole.isPresent()){
+        userRepository.save(user);
+    }
+
+    private Optional<Role> findUser(Iterable<Role> roles)
+    {
+        Set<Role> rolesSavedSet = convertIterableRoleToSetRole(roles);
+        return rolesSavedSet
+                .stream()
+                .filter(p->"USER".equals(p.getName()))
+                .findFirst();
+    }
+
+    private void createUser(Iterable<Role> roles) {
+        Optional<Role> userRole = findUser(roles);
+        if (userRole.isPresent()) {
             Set<Role> userRoleSelected = new HashSet<Role>();
-            userRoleSelected.add(userRole.get());
-            new User("user",
-                     "pass",
-                    true,
-                    userRoleSelected);
+            User user =
+                    new User("user",
+                            "pass",
+                            true,
+                            userRoleSelected);
+            userRepository.save(user);
         }
 
-        userRepository.saveAll(users);
     }
 }
